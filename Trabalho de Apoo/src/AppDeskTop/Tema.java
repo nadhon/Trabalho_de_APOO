@@ -4,9 +4,9 @@ public class Tema {
     private String corDeFundo;
     private String corDaFonte;
     private String nomeDaFonte;
-    private int tamanhoDaFonte;
+    private static int tamanhoDaFonte;
 
-    private Tema(String corDeFundo, String corDaFonte, int tamanhoDaFonte){
+    private Tema(String corDeFundo, String corDaFonte, int tamanhoDaFonte, String nomeDaFonte){
     }
     public String getCorDeFundo() {
         return corDeFundo;
@@ -35,33 +35,49 @@ public class Tema {
         private String corDeFundo;
         private String corDaFonte;
         private String nomeDaFonte;
-        public String comCorDeFundo(String corDeFundo){
+
+        public TemaBuilder comCorDeFundo(String corDeFundo){
             this.corDeFundo = corDeFundo;
-            return corDeFundo;
+            return this;
         }
-        public String comCorDaFonte(String corDeFundo){
+
+        public TemaBuilder comCorDaFonte(String corDaFonte){
             this.corDaFonte = corDaFonte;
-            return corDaFonte;
+            return this;
         }
-        public String comNomeDaFonte(String corDeFundo){
+
+        public TemaBuilder comNomeDaFonte(String nomeDaFonte,int tamanhoDaFonte){
             this.nomeDaFonte = nomeDaFonte;
+            return this;
+        }
+
+
+        public String getNomeDaFonte() {
             return nomeDaFonte;
         }
-    }
-    public void setCorDeFundo(String corDeFundo) {
-        this.corDeFundo = corDeFundo;
-    }
 
-    public void setCorDaFonte(String corDaFonte) {
-        this.corDaFonte = corDaFonte;
-    }
+        public void setNomeDaFonte(String nomeDaFonte) {
+            this.nomeDaFonte = nomeDaFonte;
+        }
 
-    public void setNomeDaFonte(String nomeDaFonte) {
-        this.nomeDaFonte = nomeDaFonte;
-    }
+        public String getCorDaFonte() {
+            return corDaFonte;
+        }
 
-    public void setTamanhoDaFonte(int tamanhoDaFonte) {
-        this.tamanhoDaFonte = tamanhoDaFonte;
+        public void setCorDaFonte(String corDaFonte) {
+            this.corDaFonte = corDaFonte;
+        }
+
+        public String getCorDeFundo() {
+            return corDeFundo;
+        }
+
+        public void setCorDeFundo(String corDeFundo) {
+            this.corDeFundo = corDeFundo;
+        }
+        public Tema build(){
+            return new Tema(corDeFundo,corDaFonte,nomeDaFonte,tamanhoDaFonte);
+        }
     }
     @Override
     public String toString() {
@@ -71,8 +87,5 @@ public class Tema {
                 ", nomeDaFonte='" + nomeDaFonte + '\'' +
                 ", tamanhoDaFonte=" + tamanhoDaFonte +
                 '}';
-    }
-    public Tema build(){
-        return new Tema(corDeFundo, corDaFonte, tamanhoDaFonte);
     }
 }
