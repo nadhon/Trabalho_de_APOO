@@ -20,6 +20,9 @@ public class RelatorioTexto {
                 writer.write(p.toString());
                 writer.newLine();
                 writer.write("----------------------\n");
+            for(Cliente c : listaDeClientes){
+                writer.write(c.toString());
+                writer.newLine();
             }
             System.out.println("Pedidos salvos em pedidos.txt");
         } catch(IOException e){
