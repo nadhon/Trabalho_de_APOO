@@ -1,6 +1,0 @@
-Pedido:
- - arroz | R$1.0Kg
- | R$20.0 - arroz | R$1.0Kg
- | R$20.0 - feijao | R$0.5Kg
- | R$18.5Total: R$71.0
-----------------------

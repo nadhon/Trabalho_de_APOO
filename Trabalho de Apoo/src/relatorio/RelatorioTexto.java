@@ -14,19 +14,18 @@ public class RelatorioTexto {
     public static ArrayList<Pedido> listaDePedidos = new ArrayList<>();
     public static ArrayList<Cliente> novoCliente = new ArrayList<>();
 
-    public static void salvarPedido(ArrayList<Pedido> Pedidos){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Dedidos.txt"))){
+    public static void salvarPedido(ArrayList<Pedido> Pedidos) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Pedidos.txt"))){
             for(Pedido p : listaDePedidos){
                 writer.write(p.toString());
                 writer.newLine();
                 writer.write("----------------------\n");
-            for(Cliente c : listaDeClientes){
-                writer.write(c.toString());
-                writer.newLine();
             }
             System.out.println("Pedidos salvos em pedidos.txt");
         } catch(IOException e){
             System.out.println("Erro ao salvar pedidos"+ e.getMessage());
         }
+
+        }
+
     }
-}

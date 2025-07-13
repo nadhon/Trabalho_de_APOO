@@ -3,6 +3,7 @@ package Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Model;
 import Servico.Pedido;
 import relatorio.RelatorioTexto;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ import static relatorio.RelatorioTexto.listaDePedidos;
 import static relatorio.RelatorioTexto.novoCliente;
 
 public class MainEstoque {
-    public static void main(String[] arg){
+    public static void main(String[] arg) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         boolean executado = true;
