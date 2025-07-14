@@ -1,4 +1,4 @@
-package Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Model;
+package Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Entidades;
 
 public class Cliente {
     private String nome;

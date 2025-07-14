@@ -1,8 +1,8 @@
-package relatorio;
+package Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.relatorio;
 
-import Servico.Pedido;
-import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Model.Cliente;
-import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Model.Produto;
+import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Servico.Pedido;
+import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Entidades.Cliente;
+import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Entidades.Produto;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

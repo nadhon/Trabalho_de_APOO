@@ -1,6 +1,6 @@
-package Servico;
+package Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Servico;
 
-import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Model.Produto;
+import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Entidades.Produto;
 
 import java.util.ArrayList;
 
