@@ -1,8 +1,6 @@
 package Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.relatorio;
 
 import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Servico.Pedido;
-import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Entidades.Cliente;
-import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Entidades.Produto;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -10,13 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class RelatorioTexto {
-    public static ArrayList<Produto> listaDeProdutos = new ArrayList<>();
-    public static ArrayList<Pedido> listaDePedidos = new ArrayList<>();
-    public static ArrayList<Cliente> novoCliente = new ArrayList<>();
 
     public static void salvarPedido(ArrayList<Pedido> Pedidos) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Pedidos.txt"))){
-            for(Pedido p : listaDePedidos){
+            for(Pedido p : Pedidos.toArray(new Pedido[0])){
                 writer.write(p.toString());
                 writer.newLine();
                 writer.write("----------------------\n");

@@ -1,14 +1,16 @@
 package Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Servico;
 
 import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Entidades.Produto;
+import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Persistencia.DadosDeSistema;
 
 import java.util.ArrayList;
 
-public class Pedido {
+public class Pedido extends DadosDeSistema {
 
     private ArrayList<Produto> produtos;
 
     public Pedido(){
+        super();
         this.produtos = new ArrayList<>();
     }
     public ArrayList<Produto> getProdutos(){

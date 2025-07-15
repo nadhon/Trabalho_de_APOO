@@ -1,19 +1,20 @@
 package Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Apresentacao;
 
-import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Entidades.Cliente;
 import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Entidades.Produto;
-import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Persistencia.DadosDeSistema;
 import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Servico.Pedido;
-import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.relatorio.RelatorioTexto;
+import Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.Servico.SistemaDeCadastro;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import static Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.relatorio.RelatorioTexto.listaDePedidos;
-import static Sistema_de_Pedidos_com_Simulacao_de_Notificacoes.relatorio.RelatorioTexto.novoCliente;
-
 public class TelaCliente {
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+    private final SistemaDeCadastro sistema = new SistemaDeCadastro();
+
+    public TelaCliente() {
+        scanner = new Scanner(System.in);
+    }
+
     public void exibir(){
         boolean executado = true;
         while (executado){
@@ -30,91 +31,87 @@ public class TelaCliente {
         scanner.nextLine();
 
         switch (opcao){
-            case 1:
-                System.out.println("Nome do cliente: ");
-                String nome = scanner.nextLine();
-                System.out.println("Digite Seu CPF: ");
-                String CPF = scanner.nextLine();
-                System.out.println("Digite o seu e-mail: ");
-                String email = scanner.nextLine();
-
-                DadosDeSistema Dados = new DadosDeSistema();
-                Dados.getClientes().add(new Cliente(nome,CPF,email));
-                System.out.println("Cliente cadastrado com Sucesso!");
-                break;
-            case 2:
-                System.out.println("Cadastrar produto!");
-
-                System.out.println("Nome: ");
-                String nomedoProduto = scanner.nextLine();
-
-                System.out.println("Preço: ");
-                double preco = scanner.nextDouble();
-
-                System.out.println("Peso: ");
-                double peso = scanner.nextDouble();
-                scanner.nextLine();
-                DadosDeSistema produto = new DadosDeSistema();
-                produto.getProdutos().add(new Produto(nomedoProduto,preco,peso));
-                System.out.println("Produto cadastrado!");
-
-                break;
-            case 3:
-                System.out.println("Faça seu pedido");
-                if(RelatorioTexto.listaDeProdutos.isEmpty()){
-                    System.out.println("Nenhum produto disponivel");
-                    break;
-                }
-                Pedido pedido = new Pedido();
-                System.out.println("Escolha o seu pedido(Digitando um número): ");
-                for(int i = 0; i< RelatorioTexto.listaDeProdutos.size(); i++){
-                    System.out.println(i+" - "+RelatorioTexto.listaDeProdutos.get(i));
-                }
-                String continuar;
-                do{
-                    System.out.println("Produto nº: ");
-                    int index = scanner.nextInt();
-                    if(index >=0 && index < RelatorioTexto.listaDeProdutos.size()){
-                        pedido.adicionarProduto(RelatorioTexto.listaDeProdutos.get(index));
-                        System.out.println("produto adicionado ao carrinho!");
-                    } else{
-                        System.out.println("Índice inválido.");
-                    }
-                    System.out.println("Adicionar outro? (s/n): ");
-                    scanner.nextLine();
-                    continuar = scanner.nextLine();
-                } while (continuar.equalsIgnoreCase("s"));
-                RelatorioTexto.listaDePedidos.add(pedido);
-                System.out.println("Pedido finalizado");
-                break;
-            case 4:
-                System.out.println("===PRODUTOS CADASTRADOS===");
-                for (Produto p : RelatorioTexto.listaDeProdutos){
-                    System.out.println("- "+p);
-                }
-                break;
-            case 5:
-                System.out.println("===PEDIDOS REALIZADOS===");
-                for(Pedido ped: RelatorioTexto.listaDePedidos){
-                    System.out.println("- "+ ped);
-                }
-                break;
-            case 6:
-                System.out.println("Finalizado o pedido");
-                ArrayList<Produto> todosOsProdutos = new ArrayList<>();
-                for(Pedido ped : RelatorioTexto.listaDePedidos){
-                    todosOsProdutos.addAll(ped.getProdutos());
-                }
-                double total = Pedido.totalPedido(todosOsProdutos);
-                System.out.println("Sua fatura: R$"+ total);
-                RelatorioTexto.salvarPedido(listaDePedidos);
+            case 1 ->  cadastrarCliente();
+            case 2 ->  cadastrarProduto();
+            case 3 ->  fazerPedido();
+            case 4 ->  listarPedidos();
+            case 5 ->  listarProdutos();
+            case 6 -> {
+                finalizarPedidos();
                 executado = false;
-                break;
-            default:
-                System.out.println("Digite novamente!");
+            }
+            default -> System.out.println("Digite novamente!");
         }
 
     }
         scanner.close();
+}
+private void cadastrarCliente(){
+        System.out.println("Nome do Cliente: ");
+        String nome = scanner.nextLine();
+        System.out.println("Digite o seu CPF: ");
+        String CPF = scanner.nextLine();
+        System.out.println("Digite o seu e-mail: ");
+        String email = scanner.nextLine();
+
+        SistemaDeCadastro.cadastrarCliente(nome,CPF,email);
+        System.out.println("Cliente cadastrado com Sucesso!");
+
+}
+private void cadastrarProduto(){
+    System.out.println("Nome do Produto: ");
+    String nome = scanner.nextLine();
+    System.out.println("Digite o Preço do Produto: ");
+    String preco = scanner.nextLine();
+    System.out.println("Digite o Peso do Produto: ");
+    String peso = scanner.nextLine();
+
+    SistemaDeCadastro.cadastrarCliente(nome,preco,peso);
+    System.out.println("Produto cadastrado com Sucesso!");
+}
+private void fazerPedido() {
+    List<Produto> produtos = sistema.listarProdutos();
+    if (produtos.isEmpty()) {
+        System.out.println("Nenhum Produto disponível.");
+    }
+    Pedido pedido = new Pedido();
+    System.out.println("Escolha os seus Produtos digitando o número correspondente: ");
+    for (int i = 0; i < produtos.size(); i++) {
+        System.out.println(i + " -- " + produtos.get(i));
+    }
+    String continuar;
+    do {
+        System.out.println("Produto nº: ");
+        int index = scanner.nextInt();
+        scanner.nextLine();
+        if (index >= 0 && index < produtos.size()) {
+            pedido.adicionarProduto(produtos.get(index));
+        } else {
+            System.out.println("Indice Invalido.");
+        }
+        System.out.println("Adicionar outro item? (s/n): ");
+        continuar = scanner.nextLine();
+    } while (continuar.equalsIgnoreCase("s"));
+    sistema.adicionarPedido(pedido);
+    System.out.println("Pedido adicionado no carrinho");
+}
+private void listarProdutos(){
+        List<Produto> produtos = sistema.listarProdutos();
+        System.out.println("==== PRODUTOS CADASTRADOS ====");
+        for (Produto p : produtos) {
+            System.out.println(" - "+p);
+        }
+}
+private void listarPedidos(){
+        List<Pedido> pedidos = sistema.listarPedido();
+        System.out.println("==== PEDIDOS DO CARRINHO");
+        for (Pedido p : pedidos) {
+            System.out.println(" - "+p);
+        }
+}
+private void finalizarPedidos(){
+        double total = sistema.finalizarPedido();
+        System.out.printf("Sua fatura : R$ %.2f%n",total);
+        System.out.println("Pedidos Finalizados e Nota emitida com Sucesso.");
 }
 }

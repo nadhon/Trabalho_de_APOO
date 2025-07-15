@@ -8,12 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DadosDeSistema {
-    private List<Pedido> pedidos = new ArrayList<>();
+    private static DadosDeSistema instancia;
+
+    protected DadosDeSistema(){}
+    public static DadosDeSistema getInstance()
+    {
+        if(instancia == null){
+            instancia =  new DadosDeSistema();
+        }
+        return instancia;
+    }
+    private List<Pedido> Listapedidos = new ArrayList<>();
     private List<Produto> produtos = new ArrayList<>();
     private List<Cliente> clientes = new ArrayList<>();
 
-    public List<Pedido> getPedidos(){
-        return pedidos;
+    public List<Pedido> getListapedidos(){
+
+        return Listapedidos;
     }
     public List<Produto> getProdutos(){
         return produtos;
